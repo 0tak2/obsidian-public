@@ -169,7 +169,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	1. Container: 싱글톤 객체로 다룬다. resolve할 때마다 객체를 만들지 않고 하나를 공유한다.
 	2. Weak: 이 스코프인 상태에서 객체가 생성되면, 컨테이너에서 해당 객체가 참조되고 있을 경우 해당 객체가 공유된다. 참조가 없어진 후 resolve가 호출되면 새로 생성한다.
 
-- 객체가 가지는 상태에 따라 다르게 지정해줘야할 것 같다. 전역적으로 상태가 공유되어야 하거나 stateless하여 매번 생성되어서는 안되거나 생성할 필요가 없으므로 Container를 쓰면 될 것이다.
+- 객체가 가지는 상태에 따라 다르게 지정해줘야할 것 같다. 전역적으로 상태가 공유되어야 하거나 stateless한 객체라면 매번 생성되어서는 안되거나 생성할 필요가 없으므로 Container를 쓰면 될 것이다.
 - 객체가 특정 컨텍스트에서 가지는 별개의 상태를 가진다면 Transient나 Graph를 쓰면 될 것이다. 컨텍스트가 특정 컴포넌트에 국한하여 정해지는 경우라면 Graph가 맞겠다.
 - 컴포넌트 간 라이프 사이클이 상응하는 것이 중요하다면 Weak이 좋겠다.
 - 예제를 [여기](https://github.com/0tak2/ios-study/tree/main/self-study/swinject-study/swinject-study)에 작성해보았다.
