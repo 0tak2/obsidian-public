@@ -45,6 +45,14 @@ import XCTest
 @testable import MyCounterApp
 
 class MyCounterTests: XCTestCase {
+	override func setUp() {
+		// Put setup code here.
+	}
+
+	override func tearDown() {
+		// Put teardown code here.
+	}
+
 	func testIncrementCounter() {
 		var counter = Counter()
 		counter.increment()
@@ -62,9 +70,112 @@ class MyCounterTests: XCTestCase {
 	- 참고
 		- https://holyswift.app/what-is-testable-annotation-in-swift/
 		- https://docs.swift.org/swift-book/documentation/the-swift-programming-language/accesscontrol/#Access-Levels-for-Unit-Test-Targets
+- 테스트 클래스는 XCTestCase를 상속하여 Xcode에서 테스트할 떄 사용할 수 있음을 나타냄
+- 테스트 케이스 각각은 이 클래스의 메서드로 작성
+	- 이름은 test로 시작해 테스트하고자 하는 항목을 같이 씀
+	- Assertion API를 이용해 테스트 결과를 검증
+- 메서드를 작성하면 오른쪽에 다이아몬드 표시가 나옴. 실행 가능하다는 의미
+	- 테스트 실행 후 실패하면 빨간색 X표 다이아몬드로 변경됨
+	- 수정 후 다시 실행해 성공하면 초록색 체크 다이아몬드로 변경됨
+- 초기화와 클린업 - setUp() 메서드와 tearDown() 메서드를 오버라이드
+	- setUp() 메서드와 tearDown() 메서드는 각 테스트 케이스 전 후에 매번 실행된다.
+		![](Pasted%20image%2020250202100554.png)
+
+### 데모
+#### 단위 테스트
+- 여행 관련 앱에서, 도시 이름을 두 개 입력받으면 도시 사이 거리를 마일로 계산하여 반환하는 DistanceCalculator 테스트
+- 같은 파일 내의 딕셔너리로 각 도시와 위도/경도가 입력되어 있고, 추후 DB로 옮길 예정
+
+```swift
+class DistanceCalculatorTests: XCTestCase {
+	var calculator: DistanceCalculator!
+
+	override func setUp() {
+		calculator = DistanceCalculator()
+	}
+
+	override func tearDown() {
+	}
+
+	func testCoordinatesOfSeattle() throws {
+		let city = try XCTUnwrap(calculator.city(forName: "Seattle"))
+
+		XCTAssertEqual(city.coordicates.latitiude, 47.61)
+		XCTAssertEqual(city.coordicates.longitude, -122.33)
+	}
+
+	func testSanFranciscoToNewYork() throws {
+		let distanceInMiles = try calculator.distaceInMiles(from: "San Francisco", to: "New York City")
+		XCTAssertEqual(distanceInMiles, 2571, accuracy: 1)
+	}
+
+	func testCupertinoNotRecognized() throws {
+		XCTAssertThrowsError(try calculator.dinstanceInMiles(from: "Cupertino", to: "New York City")) { error in
+			XCTAsserEqual(error as? DistanceCalculator.Error, .unknownCity("Cupertino"))
+		}
+	}
+}	
+```
+
+##### 팁
+- 화면을 이분할 하여, 위의 에디터에 테스트 코드, 아래의 에디터에 원래 코드를 띄워놓고 작업 -> 편해 보임
+- Optional을 언래핑할 떄에는 강제 언래핑하지 않고 XCTUnwrap API를 활용. nil이면 예외 발생
+- 애초에 테스트 메서드 정의 시 throws 지정, 예외처리를 따로 하지 않고 예외가 발생하면 테스트 실패하도록 함
+- XCTAssertEqual에 accuracy를 지정해 허용 가능 오차를 지정할 수 있음
+- 의도적으로 예외가 발생하는지 테스트 하기 위해서는 XCTAssertThrowsError API 사용
+- 왼쪽 패널의 다이아몬드 아이콘을 누르면 작성한 테스트 클래스, 케이스들이 보이고 조작 가능하다.
+
+#### UI 테스트
+- UI 테스트는 코드 내부 구조와 상관 없이 진행되는 블랙박스 테스트
+- 화면의 요소와 인터랙션 하면서 테스트 진행
+
+```swift
+class DiscoverUITests: XCTestCase {
+	let app = XCUIApplication()
+
+	override func setUp() {
+		continueAfterFailure = false // 앞에서 테스트에 이미 실패하면 더 이상 진행하지 않음
+		app.launch()
+	}
+
+	override func tearDown() {
+	}
+
+	func testMilesToParis() {
+		app.tabBars.buttons["Discover"].tap() // 탭바 아이템 터치
+		XCTAssert(app.staticTexts["San Francisco"].isHittable) // San Francisco 문자열이 나타나 인터랙션 가능한 상태인지 체크
+
+		let sfImage = app.image("san-francisco")
+		sfImage.swipeLeft() // 이미지에 대해 스와이프
+		XCTAssert(app.staticTexts["San Francisco"].isHittable)
+
+		XCTAssert(app.staticTexts["5586 miles away"].isHittable)
+	}
+}
+```
+
+##### 팁
+- UI 요소를 어떻게 참조할지 모르겠는 경우
+	- 테스트 코드 중간에 브레이크포인트를 만들고 실행
+	- 디버거가 활성화되면 po app 커맨드 입력 `(lldb) po app`
+	- 이미지만 출력하고 싶은 경우 `(lldb) po app.images`
+		![](Pasted%20image%2020250202111639.png)
+
+### Test Organization
+
+- 앱 자체로 좁혀 본다면
+	![](Pasted%20image%2020250202112209.png)
+- 범위를 넓혀보면
+	![](Pasted%20image%2020250202112412.png)
+
+### Code Coverage
+
+- 테스트코드가 소스코드를 얼마나 커버하는지
+- 왼쪽 패널의 말풍선 모양 -> Coverage를 보면 타겟 별 커버리지 확인 가능
 
 ## Test plans
 
+최근 영상을 보자...
 
 ## Continuous integration workflows
 
