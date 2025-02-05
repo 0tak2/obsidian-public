@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "iOS/WWDC/Meet Swift Testing.md",
+                "file": "iOS/WWDC/Bring your world into augmented reality.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Meet Swift Testing"
+              "title": "Bring your world into augmented reality"
             }
           }
         ]
@@ -40,7 +40,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "파일 탐색기"
@@ -93,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "iOS/WWDC/Bring your world into augmented reality.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for README"
+              "title": "Bring your world into augmented reality 의 백링크"
             }
           },
           {
@@ -139,10 +140,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "iOS/WWDC/Bring your world into augmented reality.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of README"
+              "title": "Bring your world into augmented reality 의 개요"
             }
           }
         ]
@@ -154,19 +158,22 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:퀵 스위처 열기": false,
+      "switcher:빠른 전환기 열기": false,
+      "daily-notes:오늘의 일일 노트 열기": false,
       "graph:그래프 뷰 열기": false,
       "canvas:새 캔버스 만들기": false,
-      "daily-notes:오늘의 데일리 노트 열기": false,
       "templates:템플릿 삽입": false,
       "command-palette:명령어 팔레트 열기": false
     }
   },
   "active": "ff39d8211f001986",
   "lastOpenFiles": [
+    "iOS/WWDC/ARKit 6 소개.md",
+    "iOS/WWDC/Bring your world into augmented reality.md",
+    "iOS/WWDC/attachments/Pasted image 20250205123935.png",
+    "iOS/WWDC/Meet Swift Testing.md",
     "iOS/WWDC/attachments/Pasted image 20250202144849.png",
     "().md",
-    "iOS/WWDC/Meet Swift Testing.md",
     "iOS/WWDC/attachments/Pasted image 20250202143847.png",
     "iOS/WWDC/attachments/Pasted image 20250202143758.png",
     "iOS/WWDC/attachments/Pasted image 20250202143729.png",
@@ -178,8 +185,6 @@
     "iOS/WWDC/attachments/Pasted image 20250202133301.png",
     "iOS/Notification Center.md",
     "iOS/Swinject.md",
-    "iOS/attachments/Pasted image 20250127200807.png",
-    "iOS/WWDC/attachments/Pasted image 20250202112412.png",
     "iOS/WWDC/attachments",
     "iOS/WWDC",
     "iOS/attachments",
