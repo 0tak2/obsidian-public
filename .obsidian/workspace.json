@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "iOS/WWDC/Bring your world into augmented reality.md",
+                "file": "iOS/코디네이터 패턴.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Bring your world into augmented reality"
+              "title": "코디네이터 패턴"
             }
           }
         ]
@@ -168,8 +168,9 @@
   },
   "active": "ff39d8211f001986",
   "lastOpenFiles": [
-    "iOS/WWDC/ARKit 6 소개.md",
     "iOS/WWDC/Bring your world into augmented reality.md",
+    "iOS/코디네이터 패턴.md",
+    "iOS/WWDC/ARKit 6 소개.md",
     "iOS/WWDC/attachments/Pasted image 20250205123935.png",
     "iOS/WWDC/Meet Swift Testing.md",
     "iOS/WWDC/attachments/Pasted image 20250202144849.png",
