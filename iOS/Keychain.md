@@ -71,13 +71,23 @@ var query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
 	default:
 	  throw error(from: status)
 	}
-	```
+// ----------------------------
+
+// 6
+// MARK: OSStatus -> Message String -> Custom Error Enum
+private func error(from status: OSStatus) -> SecureStoreError {
+	let message = SecCopyErrorMessageString(status, nil) as String? ?? NSLocalizedString("Unhandled Error", comment: "")
+	return SecureStoreError.unhandledError(message: message)
+}
+```
 
 1. String을 Data로 변환
 2. 먼저 조회를 위한 쿼리 딕셔너리를 작성
 3. 쿼리 딕셔너리를 이용해 조회
 4. 성공한 경우 이미 데이터가 있다는 의미이므로 업데이트 수행
 5. 데이터가 없어 실패한 경우 값 추가
+
+6. 에러처리를 위한 헬퍼 함수. SecCopyErrorMessageString를 이용하면 OSStatus로부터 에러 메시지를 얻을 수 있다.
 
 ## 읽기
 
@@ -119,14 +129,14 @@ default:
 }
 ```
 
-1. 원하는 조건을 포함해 쿼리 딕셔너리를 만든다.
+7. 원하는 조건을 포함해 쿼리 딕셔너리를 만든다.
 	- kSecMatchLimit: 몇 개 조회할지
 	- kSecReturnAttributes: 어트리뷰트 반환 여부
 	- kSecReturnData: 값 반환 여부
 	- kSecAttrAccount: 비밀번호를 검색하려는 계정 지정
-2. 해당 쿼리로 데이터를 조회한다. 이때 조회 결과를 담을 변수 queryResult의 포인터를 넘긴다. (status가 아니라 조회된 값이 담길 포인터)
-3. 성공한 경우 queryResult를 딕셔너리로 변환해 값을 추출한다. kSecValueData가 값의 키이다. Data 타입이므로 String으로 디코딩해야 한다.
-4. 실패한 경우 nil 반환
+8. 해당 쿼리로 데이터를 조회한다. 이때 조회 결과를 담을 변수 queryResult의 포인터를 넘긴다. (status가 아니라 조회된 값이 담길 포인터)
+9. 성공한 경우 queryResult를 딕셔너리로 변환해 값을 추출한다. kSecValueData가 값의 키이다. Data 타입이므로 String으로 디코딩해야 한다.
+10. 실패한 경우 nil 반환
 
 ## 삭제
 
@@ -149,10 +159,10 @@ guard status == errSecSuccess || status == errSecItemNotFound else {
 }
 ```
 
-1. 원하는 조건을 포함해 쿼리 딕셔너리를 만든다.
+11. 원하는 조건을 포함해 쿼리 딕셔너리를 만든다.
 	- 삭제할 계정을 kSecAttrAccount 키로 추가했다.
 	- 데이터를 조회하는 상황이 아니므로 kSecReturnAttributes, kSecReturnData 등은 설정할 필요가 없다.
-2. 삭제 후 결과를 확인한다. 성공이거나 조회 결과가 없는 경우 에러 없이 종료한다.
+12. 삭제 후 결과를 확인한다. 성공이거나 조회 결과가 없는 경우 에러 없이 종료한다.
 
 ### 모두 삭제
 
