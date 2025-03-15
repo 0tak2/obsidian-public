@@ -32,7 +32,7 @@ var query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
 
 ## 쓰기/수정하기
 
--  Kodeco에서 제공하는 예제 코드임을 발힌다. ([출처](https://www.kodeco.com/9240-keychain-services-api-tutorial-for-passwords-in-swift/page/2?page=2#toc-anchor-004))
+-  Kodeco에서 제공하는 예제 코드임을 밝힌다. ([출처](https://www.kodeco.com/9240-keychain-services-api-tutorial-for-passwords-in-swift/page/2?page=2#toc-anchor-004))
 
 	```swift
 	// 1
